@@ -17,9 +17,9 @@ window.onload = function(event) {
 
 function renderDecisionCard(decision) {
     const decHTML = `
-        <div class="mdl-card" id="${decision.id}">
-            <div class="mdl-card__title" id="title-${decision.id}">
-                <h4 class="mdl-card__title-text ${decision.favorite}">${decision.question}</h4>
+        <div class="mdl-card" id="id-${decision.id}">
+            <div class="mdl-card__title ${decision.favorite}" id="title-${decision.id}">
+                <h4 class="mdl-card__title-text">${decision.question}</h4>
             </div>
             <div class="mdl-card__supporting-text" id="#decisionCardContent">
                 <h2>${decision.answer}</h2>
@@ -63,7 +63,7 @@ function makeDecision(question,answerText) {
 }
 
 function deleteClick(id) {
-    const decisionCard = document.querySelector(`#${id}`)
+    const decisionCard = document.querySelector(`#id-${id}`)
     delete decisions[id];
     ids.splice(ids.indexOf(id),1);
     localStorage.setItem('decisions',JSON.stringify(decisions));
@@ -103,6 +103,8 @@ function checkNoDecisions() {
     const noDecisions = document.querySelector('#noDecisions')
     if(noDecisions != null) {
         noDecisions.parentNode.removeChild(noDecisions);
+    } else if(ids.length == 0) {
+        //document.querySelector('#answersArea').innerHTML = '<p class="text-primary-color" id="noDecisions">No decisions have been made yet.</p>';
     }
 }
 
