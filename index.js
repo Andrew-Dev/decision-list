@@ -44,11 +44,12 @@ function makeDecision(question,answerText) {
 }
 
 function deleteClick(id) {
-    document.querySelector('.')
+    const decisionCard = document.querySelector(`#${id}`)
+    decisionCard.parentNode.removeChild(decisionCard);
 }
 
 function starClick(id) {
-
+    
 }
 
 function decisionSubmit(event) {
