@@ -1,0 +1,5 @@
+let decisions = [];
+
+function renderDecisionCard() {
+    
+}
