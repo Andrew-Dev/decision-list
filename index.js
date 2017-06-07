@@ -23,7 +23,7 @@ function renderDecisionCard(decision) {
         </div>
     `
     const answersArea = document.querySelector('#answersArea')
-    answersArea.innerHTML += decHTML
+    answersArea.innerHTML = decHTML + answersArea.innerHTML;
     return id
 }
 
@@ -44,7 +44,7 @@ function makeDecision(question,answerText) {
 }
 
 function deleteClick(id) {
-
+    document.querySelector('.')
 }
 
 function starClick(id) {
@@ -52,13 +52,21 @@ function starClick(id) {
 }
 
 function decisionSubmit(event) {
+    const noDecisions = document.querySelector('#noDecisions')
+    if(noDecisions != null) {
+        noDecisions.parentNode.removeChild(noDecisions);
+    }
     event.preventDefault();
     const form = event.target;
     const question = form.question.value;
     const answerText = form.answers.value;
-    answerText.value = "";
-    question.value = "";
     makeDecision(question,answerText);
+    form.question.value = null;
+    form.answers.value = null;
+    document.querySelectorAll('.mdl-textfield').forEach(function(field) {
+        console.log(field);
+        field.setAttribute('class',field.getAttribute('class').replace('is-dirty',''));
+    });
 }
 
 const decisionForm = document.querySelector('#decisionForm')
