@@ -49,7 +49,13 @@ function deleteClick(id) {
 }
 
 function starClick(id) {
-    
+    const decisionCard = document.querySelector(`#title-${id}`)
+    const decisionClass = decisionCard.getAttribute('class');
+    if(decisionClass.includes('star')) {
+        decisionCard.setAttribute('class',decisionClass.replace('star',''));
+    } else {
+        decisionCard.setAttribute('class',decisionClass + ' star');
+    }
 }
 
 function decisionSubmit(event) {
