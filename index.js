@@ -69,6 +69,7 @@ function deleteClick(id) {
     localStorage.setItem('decisions',JSON.stringify(decisions));
     localStorage.setItem('ids',JSON.stringify(ids));
     decisionCard.parentNode.removeChild(decisionCard);
+    checkNoDecisions();
 }
 
 function starClick(id) {
@@ -104,7 +105,7 @@ function checkNoDecisions() {
     if(noDecisions != null) {
         noDecisions.parentNode.removeChild(noDecisions);
     } else if(ids.length == 0) {
-        //document.querySelector('#answersArea').innerHTML = '<p class="text-primary-color" id="noDecisions">No decisions have been made yet.</p>';
+        document.querySelector('#answersArea').innerHTML = '<p class="text-primary-color" id="noDecisions">No decisions have been made yet.</p>';
     }
 }
 
