@@ -1,22 +1,35 @@
 let decisions = {}
+let ids = [];
+
+window.onload = function(event) {
+    if(window.localStorage.getItem('ids') != null) {
+        ids = JSON.parse(window.localStorage.getItem('ids'));
+        decisions = JSON.parse(window.localStorage.getItem('decisions'));
+    }
+
+    if(ids.length > 0) {
+        checkNoDecisions();
+        ids.forEach(function(id) {
+            renderDecisionCard(decisions[id]);
+        });
+    }
+}
 
 function renderDecisionCard(decision) {
-    const id = Math.random().toString(36).substring(8)
-    decision['id'] = id;
     const decHTML = `
-        <div class="mdl-card" id="${id}">
-            <div class="mdl-card__title" id="title-${id}">
-                <h4 class="mdl-card__title-text">${decision.question}</h4>
+        <div class="mdl-card" id="${decision.id}">
+            <div class="mdl-card__title" id="title-${decision.id}">
+                <h4 class="mdl-card__title-text ${decision.favorite}">${decision.question}</h4>
             </div>
             <div class="mdl-card__supporting-text" id="#decisionCardContent">
                 <h2>${decision.answer}</h2>
                 <p>Options: ${decision.options}</p>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <button class="mdl-button mdl-js-button mdl-button--icon" onclick="starClick('${id}')">
+                <button class="mdl-button mdl-js-button mdl-button--icon" onclick="starClick('${decision.id}')">
                     <i class="material-icons">star</i>
                 </button>
-                <button class="mdl-button mdl-js-button mdl-button--icon" onclick="deleteClick('${id}')">
+                <button class="mdl-button mdl-js-button mdl-button--icon" onclick="deleteClick('${decision.id}')">
                     <i class="material-icons">delete</i>
                 </button>
             </div>
@@ -24,7 +37,6 @@ function renderDecisionCard(decision) {
     `
     const answersArea = document.querySelector('#answersArea')
     answersArea.innerHTML = decHTML + answersArea.innerHTML;
-    return id
 }
 
 function makeDecision(question,answerText) {
@@ -39,12 +51,23 @@ function makeDecision(question,answerText) {
         answer: answer,
         options: options,
         question: question,
+        favorite: '',
     }
-    renderDecisionCard(decision);
+    const id = Math.random().toString(36).substring(8)
+    decision['id'] = id;
+    decisions[id] = decision;
+    ids.push(id);
+    localStorage.setItem('decisions',JSON.stringify(decisions));
+    localStorage.setItem('ids',JSON.stringify(ids));
+    renderDecisionCard(decision,id);
 }
 
 function deleteClick(id) {
     const decisionCard = document.querySelector(`#${id}`)
+    delete decisions[id];
+    ids.splice(ids.indexOf(id),1);
+    localStorage.setItem('decisions',JSON.stringify(decisions));
+    localStorage.setItem('ids',JSON.stringify(ids));
     decisionCard.parentNode.removeChild(decisionCard);
 }
 
@@ -53,16 +76,16 @@ function starClick(id) {
     const decisionClass = decisionCard.getAttribute('class');
     if(decisionClass.includes('star')) {
         decisionCard.setAttribute('class',decisionClass.replace('star',''));
+        decisions[id].favorite = '';
     } else {
         decisionCard.setAttribute('class',decisionClass + ' star');
+        decisions[id].favorite = 'star';
     }
+    localStorage.setItem('decisions',JSON.stringify(decisions));
 }
 
 function decisionSubmit(event) {
-    const noDecisions = document.querySelector('#noDecisions')
-    if(noDecisions != null) {
-        noDecisions.parentNode.removeChild(noDecisions);
-    }
+    checkNoDecisions();
     event.preventDefault();
     const form = event.target;
     const question = form.question.value;
@@ -74,6 +97,13 @@ function decisionSubmit(event) {
         console.log(field);
         field.setAttribute('class',field.getAttribute('class').replace('is-dirty',''));
     });
+}
+
+function checkNoDecisions() {
+    const noDecisions = document.querySelector('#noDecisions')
+    if(noDecisions != null) {
+        noDecisions.parentNode.removeChild(noDecisions);
+    }
 }
 
 const decisionForm = document.querySelector('#decisionForm')
