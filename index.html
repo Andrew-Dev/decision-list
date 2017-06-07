@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Decision List</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.yellow-cyan.min.css" />
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+                <div class="leftArea">
+                    <h1 class="text-primary-color" id="title">DecisionMaker</h1>
+                    <h3 class="text-primary-color" id="subtitle">Decisions made simple.</h3>
+                    <div class="mdl-card">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">Make a decision</h4>
+                        </div>
+                        <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="sample1">
+                            <label class="mdl-textfield__label" for="sample1">What are you deciding?</label>
+                        </div>
+                        <div class="mdl-card__supporting-text" id="#decisionCardContent">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <textarea class="mdl-textfield__input" type="text" rows= "4" id="sample5" ></textarea>
+                                <label class="mdl-textfield__label" for="sample5">Enter each item to decide on in each line</label>
+                            </div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                Decide
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                    <h4 class="text-primary-color">No longer worry when you can't make a decision. Just list all the items to decide in the form above, then click decide. You will then see your decision listed to the right.</h4>
+                </div>
+            </div>
+            <div class="mdl-cell mdl-cell--8-col">
+                <div class="rightArea">
+                    <h1 class="text-primary-color">My Decisions</h1>
+                    <div class="mdl-card">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">Should I get chinese food?</h4>
+                        </div>
+                        <div class="mdl-card__supporting-text" id="#decisionCardContent">
+                            <h2>Yes</h2>
+                            <p>Other options: No</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </body>
+</html>
